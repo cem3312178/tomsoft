@@ -573,7 +573,7 @@ public class UtilController
     {
         SQLMethods dbconn = new SQLMethods();
 
-        ResultSet result = dbconn.searchApprovedJobsNotPrinted(printer);
+        ResultSet result = dbconn.searchJobsStatusPrinter("approved",printer);
         ArrayList<ArrayList<Object>> approvedForPrinter = readyOutputForViewPage(result);
         dbconn.closeDBConnection();
 
@@ -615,7 +615,7 @@ public class UtilController
     public static void revertBuild(String buildPath, String printer)
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet r = dbconn.searchPendingByBuildName(buildPath);
+        ResultSet r = dbconn.searchJobsByBuildName(buildPath);
         try 
         {
             while(r.next())
@@ -655,7 +655,7 @@ public class UtilController
         try 
         {
             /* queries the DB for everything that has the buildName = to build name passed in as parameter */
-            ResultSet res1 = dbconn.searchPendingByBuildName(buildName);
+            ResultSet res1 = dbconn.searchJobsByBuildName(buildName);
             ArrayList list = new ArrayList();
             System.out.println("String buildName: " + buildName);
             
@@ -743,6 +743,39 @@ public class UtilController
         return true;
     }
     
+    public static boolean submitBuildToDB(String buildName, String fileName, Device de)
+    {
+        SQLMethods dbconn = new SQLMethods();
+        FileManager instance = new FileManager();
+        
+        ResultSet res1 = dbconn.searchJobsByBuildName(buildName);
+        ArrayList list = new ArrayList();
+        System.out.println("String buildName: " + buildName);
+        
+        try 
+        {
+            while (res1.next()) 
+            {
+                list.add(res1.getString("buildName"));
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        
+        }
+        
+        /* itr contains a list of student submissions that where selected for the build process in the previous screen PrinterBuild.java */
+        Iterator itr = list.iterator();
+        while(itr.hasNext())
+        {
+            ResultSet res2 = dbconn.searchJobsByBuildName(itr.next().toString());
+        
+        }
+        
+        return true;
+    }
+    
     /**
      * This method finds the printer build class for its respective printer
      * 
@@ -772,6 +805,44 @@ public class UtilController
         }
     }
     
+    public void makeBuild(String printer, String buildFileLocation, ArrayList<Object> buildData)
+    {
+        SQLMethods dbconn = new SQLMethods();
+        
+        
+        
+        dbconn.closeDBConnection();
+    }
     
+    /**
+     * Creates template device class for the printer build process to use. 
+     * This is created before build data is typed in in the printer dialog class.
+     * This device class will be used to determine the fields that will be needed for the printer dialog,
+     * as well as a middleman for the ui and database (so they don't have to mix).
+     * @param printer the name of the printer (in the database)
+     * @return
+     */
+    public static Device getPrinterInfo(String printer)
+    {
+        Device buildPrinter = new Device();
+        SQLMethods dbconn = new SQLMethods();
+        
+        buildPrinter.setDeviceName(printer);
+        ResultSet r = dbconn.selectColumnNames(printer);
+        ArrayList<String> fieldNames = new ArrayList();
+        try {
+            while(r.next())
+            {
+                fieldNames.add(r.getString("custom_field_name"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        buildPrinter.setFieldNames(fieldNames);
+        
+        
+        dbconn.closeDBConnection();
+        return buildPrinter;
+    }
     
 }

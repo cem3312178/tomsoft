@@ -879,7 +879,7 @@ public ResultSet selectBuildData(int id) {
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT * "
-                    + "FROM pendingjobs "
+                    + "FROM jobs "
                     + "WHERE "
                     + "buildName = '" + buildName + "'");
             //stmt.setString(1, buildName);
@@ -1059,7 +1059,7 @@ public ResultSet selectBuildData(int id) {
         {
             stmt = this.conn.prepareStatement
             (
-                    "SELECT fileName, dateStarted "
+                    "SELECT file_name, submission_date "
                     + "FROM pendingjobs "
                     + "WHERE "
                     + "printer = ? "
@@ -1093,22 +1093,7 @@ public ResultSet selectBuildData(int id) {
         }
     }
 
-    public void updatePendingJobByCost(String idJob, double cost) {
-        try {
-            stmt = this.conn.prepareStatement(
-                    "UPDATE pendingjobs "
-                    + "SET cost = " + cost + " "
-                    + "WHERE idJobs = '" + idJob + "'");
-            System.out.println(stmt);
-            stmt.executeUpdate();
-
-        } 
-		catch (SQLException ex) 
-		{
-            Logger.getLogger(SQLMethods.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
     
     /* PLEASE NOT THIS WILL NOT RUN IN MYSQL WORK BENCH B/C OF SAFETY MODE! 
         Safe UPDATE mode only allows table modifications if the WHERE clause
