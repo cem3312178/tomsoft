@@ -281,9 +281,10 @@ public class MainView extends javax.swing.JFrame {
         String id = studentIdString.getText();//DB team this is to store String
         if(id.length() != 7){
             errorIdLabel.setText("TU ID must be 7 digits");   
-        }
-        //else if not in database "invailid TU ID, enter vaild or create new student"
-        else{
+        }else if(!UtilController.idPreexists(Integer.getInteger(id))){
+            //a bit confusing, but that line uses a UtilController method to make sure the id exists
+            errorIdLabel.setText("invalid TU ID, enter valid ID or create new student");
+        }else{
             errorIdLabel.setText("");
             dispose();
             studentSys.studentSubmissionStart();

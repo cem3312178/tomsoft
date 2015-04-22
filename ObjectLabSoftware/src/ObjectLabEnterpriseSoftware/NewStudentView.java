@@ -8,6 +8,7 @@ package ObjectLabEnterpriseSoftware;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 public class NewStudentView extends javax.swing.JFrame {
@@ -18,6 +19,7 @@ public class NewStudentView extends javax.swing.JFrame {
     
     public static SQLMethods dba;
     MainView home;
+    
     
     public void NewStudentViewStart(){
         
@@ -130,6 +132,7 @@ public class NewStudentView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
         
@@ -144,10 +147,19 @@ public class NewStudentView extends javax.swing.JFrame {
 		    JOptionPane.showMessageDialog(this,"Cannot save with empty fields!");
 		    exit=false;
 	    }
-	    if(exit==true)
-                    home.setPrintersVisible(true);
-                    home.setVisible(true);
-		    dispose();
+            
+            if(UtilController.idPreexists(Integer.getInteger(tuID))){
+                JOptionPane.showMessageDialog(this,"Towson Id already in database!");
+		exit=false;
+            }
+            //this if checks to make sure the id isn't already in the db
+	    
+            if(exit==true){
+                UtilController.insertNewUser(Integer.getInteger(tuID), firstName, lastName, email);
+                home.setPrintersVisible(true);
+                home.setVisible(true);
+		dispose();
+            }
         
     }//GEN-LAST:event_submitActionPerformed
 

@@ -856,4 +856,40 @@ public class UtilController
 		dbconn.closeDBConnection();
 	}
 	
+        public static boolean idPreexists(int id){
+        /*
+	Establish connection to DB
+        */
+	SQLMethods dbconn = new SQLMethods();
+        
+        //use method to get count of matching ids
+        ResultSet res = dbconn.selectIDcount(id);
+        
+        int count = -1;
+        
+        try{
+            count = res.getInt(1);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        dbconn.closeDBConnection();
+        //closes the connection
+        
+        if(count <= 0){
+            return false;
+        }else{
+            return false;
+        }
+        
+        }
+        
+        public static void insertNewUser(int idusers, String firstName, String lastName,String email){
+            SQLMethods dbconn = new SQLMethods();
+            
+            dbconn.insertIntoUsers(idusers, firstName, lastName, email);
+            
+            dbconn.closeDBConnection();
+        }
+        
 }

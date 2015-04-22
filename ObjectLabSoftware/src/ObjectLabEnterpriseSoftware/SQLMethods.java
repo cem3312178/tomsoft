@@ -249,13 +249,25 @@ public class SQLMethods
         return res;
     }
         
-public ResultSet selectBuildData(int id) {
+        public ResultSet selectBuildData(int id) {
         res = null;
         try {
             stmt = this.conn.prepareStatement("SELECT * FROM column_build_data Where build_id = ? " );
             res = stmt.executeQuery();
             stmt.setInt(1, id);
         } catch (SQLException e) {
+            System.err.println("SQL Execution Error.");
+        }
+        return res;
+    }
+        
+        public ResultSet selectIDcount(int id){
+        res = null;
+        try{
+            stmt = this.conn.prepareStatement("SELECT count(*) FROM users WHERE towson_id = ? ");
+            res = stmt.executeQuery();
+            stmt.setInt(1, id);
+        } catch (SQLException e){
             System.err.println("SQL Execution Error.");
         }
         return res;
