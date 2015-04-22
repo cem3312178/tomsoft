@@ -1,5 +1,7 @@
 package ObjectLabEnterpriseSoftware;
 
+import javax.swing.JOptionPane;
+
 
 public class PasswordDialogView extends javax.swing.JFrame {
 
@@ -23,13 +25,14 @@ public class PasswordDialogView extends javax.swing.JFrame {
         CancelButton = new javax.swing.JButton();
         SubmitButton = new javax.swing.JButton();
         Password = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        AdminId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Administrator Password:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         CancelButton.setText("Cancel");
         CancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -37,7 +40,7 @@ public class PasswordDialogView extends javax.swing.JFrame {
                 CancelButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 57, -1, -1));
+        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
         SubmitButton.setText("Submit");
         SubmitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -45,21 +48,30 @@ public class PasswordDialogView extends javax.swing.JFrame {
                 SubmitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 57, -1, -1));
-        getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 31, 136, -1));
+        getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, -1, -1));
+        getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 136, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 160, 100));
+        jLabel3.setText("Administrator TU ID:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        getContentPane().add(AdminId, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 130, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
-        // TODO add your handling code here:
-        /*
-        Add code to return password
-        */
-        this.dispose();
+        //this checks if the passwords match.
+        String admin = AdminId.getText();
+        char[] pw = Password.getPassword();
+        String pass = pw.toString();
+        
+        boolean exit = true;
+        
+        if(!UtilController.passwordRight(admin, pass)){
+            JOptionPane.showMessageDialog(this,"Password Incorrect!");
+            exit=false;
+        }else{
+            this.dispose();
+        }
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
@@ -109,10 +121,11 @@ public class PasswordDialogView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField AdminId;
     private javax.swing.JButton CancelButton;
     private javax.swing.JPasswordField Password;
     private javax.swing.JButton SubmitButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

@@ -892,4 +892,24 @@ public class UtilController
             dbconn.closeDBConnection();
         }
         
+        public static boolean passwordRight(String admin, String pw){
+            /*
+	Establish connection to DB
+        */
+	SQLMethods dbconn = new SQLMethods();
+        boolean match = false;
+        
+        try{
+            ResultSet res = dbconn.selectPassFromadmin(admin);
+            String dbpass = res.getString(1);
+            
+            match = pw.equals(dbpass);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        dbconn.closeDBConnection();
+        
+        return match;
+        }
 }
