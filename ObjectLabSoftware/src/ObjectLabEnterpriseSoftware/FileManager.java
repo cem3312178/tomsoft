@@ -297,6 +297,29 @@ public class FileManager
  
        // System.out.println("Regular file :" + parentName+inputFile.getName() +" is zipped to archive :"+ZIPPED_FOLDER);
     }
+    
+    /** 
+     * This is a temporary method created by David Prince to set up the location of the printed File
+     * 
+     * @param printerName this is the name of the printer being used
+     * @return the location where the printed file will be stored
+     */
+    public String getDevicePrinted(String printerName) 
+	{
+        return drive + "\\ObjectLabPrinters\\" + printerName + "\\Printed";
+    }
+    
+        /** 
+     * This is a temporary method created by David Prince to set up the location of the file to Print
+     * 
+     * @param printerName this is the name of the printer being used
+     * @return the location where the printed file will be stored
+     */
+    public String getDeviceToPrint(String printerName) 
+	{
+        return drive + "\\ObjectLabPrinters\\" + printerName + "\\ToPrint";
+    }
+    
     //getters and setters moved from InstanceCall by Emily and Miguel
     /**
      * @return the zcorpToPrint

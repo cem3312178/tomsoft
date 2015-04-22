@@ -356,6 +356,18 @@ public ResultSet selectBuildData(int id) {
 			e.printStackTrace();
 		}
 	}
+        //modified version by David Prince
+        public void insertIntoColumn(String buildid, int columnid, String data) {
+		try {
+			stmt = conn.prepareStatement("insert into column_build_data ( build_name, column_name_id, column_field_data) values (?,?, ?)");
+			stmt.setString(1, buildid);
+			stmt.setInt(2, columnid);
+			stmt.setString(3, data);
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void insertIntoCustom(String printer, String name) {
 		try {
@@ -410,6 +422,39 @@ public ResultSet selectBuildData(int id) {
 			stmt = this.conn.prepareStatement("UPDATE job SET build_id = ? WHERE file_name = ?");
 			stmt.setInt(1, build);
 			stmt.setString(2, fileName);
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE,
+					null, ex);
+		}
+	}
+        
+        //modified to work with updated DB
+        public void updatePendingJobsBuildName(String build, String fileName) {
+		try {
+			stmt = this.conn.prepareStatement("UPDATE job SET build_name = ? WHERE file_name = ?");
+			stmt.setString(1, build);
+			stmt.setString(2, fileName);
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE,
+					null, ex);
+		}
+	}
+        
+        /**
+         * Method made by David Prince to update information in a build. 
+         * This is used by UtilController.submitBuildToDB to take things the user has typed in and store them in the DB.
+         * @param build
+         * @param runTime
+         * @param models 
+         */
+        public void updateBuildData(String build, int runTime, int models) {
+		try {
+			stmt = this.conn.prepareStatement("UPDATE printer_build SET total_runtime_seconds = ?, number_of_models = ? WHERE build_name = ?");
+			stmt.setInt(1, runTime);
+			stmt.setInt(2, models);
+                        stmt.setString(3, build);
 			stmt.executeUpdate();
 		} catch (SQLException ex) {
 			Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE,
@@ -1101,7 +1146,7 @@ public ResultSet selectBuildData(int id) {
     
         ---------------THIS IS NOT SAFE--------------
         SET buildName = ? WHERE filename = ?
-    */
+    
     public void updatePendingJobsBuildName(String build, String fileName) {
         try {
             stmt = this.conn.prepareStatement(
@@ -1116,7 +1161,7 @@ public ResultSet selectBuildData(int id) {
             Logger.getLogger(SQLMethods.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
 
     public void insertIntoPendingJobs(String printer, String firstName, String lastName, String Class, String section, String fileName, String filePath, String email) {
         try {

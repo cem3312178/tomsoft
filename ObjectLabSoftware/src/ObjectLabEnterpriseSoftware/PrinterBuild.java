@@ -123,7 +123,7 @@ public class PrinterBuild extends javax.swing.JFrame
             {
                 if ((Boolean) fileTableModel.getValueAt(z, 0)) 
                 {
-                    UtilController.updateRecordInPendingJobsTable(filepathToSelectedPrinterBuild.getText(), (String) fileTableModel.getValueAt(z, 1));
+                    UtilController.updateBuildNameInJobsTable(filepathToSelectedPrinterBuild.getText(), (String) fileTableModel.getValueAt(z, 1));
                     countNumOfModels++;
                 }
             }
