@@ -93,7 +93,6 @@ public class NewStudentView extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
-        setAlwaysOnTop(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newStudentLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N

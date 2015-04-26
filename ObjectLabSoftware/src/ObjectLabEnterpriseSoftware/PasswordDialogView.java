@@ -26,7 +26,6 @@ public class PasswordDialogView extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
-        setAlwaysOnTop(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Administrator Password:");
