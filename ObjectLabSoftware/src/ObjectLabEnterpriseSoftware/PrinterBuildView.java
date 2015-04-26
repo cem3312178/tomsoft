@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -14,13 +15,15 @@ import javax.swing.table.DefaultTableModel;
 
 public class PrinterBuildView extends javax.swing.JFrame 
 {
-	private static final String NAME_OF_PAGE = "Build File Creator";
-	
+    private static final String NAME_OF_PAGE = "Build File Creator";	
     private static String printerSelectedForBuildProcess;
     private static MainView home;    
     private static DefaultTableModel fileTableModel;
     private static int countNumOfModels;
     private static String BuildPrinter;
+    private static ArrayList buildInfo;
+    private static DefaultTableModel modelA;
+
     FileManager inst;
         
     private void clearEntries(DefaultTableModel fileTableModel) 
@@ -192,7 +195,8 @@ public class PrinterBuildView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -209,6 +213,12 @@ public class PrinterBuildView extends javax.swing.JFrame
         ErrorText = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         stlFileTable = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        printerNameComboBox = new javax.swing.JComboBox();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        printerInputTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        confirmBuildButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -216,7 +226,8 @@ public class PrinterBuildView extends javax.swing.JFrame
         helpMenu = new javax.swing.JMenu();
         contentsMenu = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -241,22 +252,24 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 380, 10));
 
         Submit_Button.setText("Submit");
-        Submit_Button.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        Submit_Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Submit_Button.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 Submit_ButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 470, 70, 20));
+        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 90, 20));
 
         closeBtn.setText("Close");
-        closeBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        closeBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        closeBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 closeBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 470, 60, 20));
+        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 470, 80, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Choose STL files from build: ");
@@ -266,17 +279,20 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(buildLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
         filepathToSelectedPrinterBuild.setEditable(false);
-        filepathToSelectedPrinterBuild.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        filepathToSelectedPrinterBuild.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 filepathToSelectedPrinterBuildActionPerformed(evt);
             }
         });
         getContentPane().add(filepathToSelectedPrinterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 200, -1));
 
         browseBtn.setText("Browse");
-        browseBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        browseBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        browseBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 browseBtnActionPerformed(evt);
             }
         });
@@ -290,37 +306,72 @@ public class PrinterBuildView extends javax.swing.JFrame
 
         stlFileTable.setAutoCreateRowSorter(true);
         stlFileTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "", "Project Title", "Date Submitted"
             }
-        ) {
-            Class[] types = new Class [] {
+        )
+        {
+            Class[] types = new Class []
+            {
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
             };
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean []
+            {
                 true, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
+            public Class getColumnClass(int columnIndex)
+            {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(stlFileTable);
-        if (stlFileTable.getColumnModel().getColumnCount() > 0) {
+        if (stlFileTable.getColumnModel().getColumnCount() > 0)
+        {
             stlFileTable.getColumnModel().getColumn(0).setMinWidth(30);
             stlFileTable.getColumnModel().getColumn(0).setMaxWidth(30);
             stlFileTable.getColumnModel().getColumn(1).setResizable(false);
             stlFileTable.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 360, 350));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 360, 190));
+
+        jLabel2.setText("Select Printer:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+
+        printerNameComboBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
+        getContentPane().add(printerNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 110, -1));
+
+        printerInputTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        printerInputTable.setModel(new javax.swing.table.DefaultTableModel(new Object[]{}, 1)
+        );
+        printerInputTable.setRowHeight(24);
+        jScrollPane4.setViewportView(printerInputTable);
+
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 360, 90));
+
+        jLabel3.setText("Enter Build Data");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
+
+        confirmBuildButton.setText("Confirm Build");
+        confirmBuildButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                confirmBuildButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(confirmBuildButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 410, 540));
@@ -328,8 +379,10 @@ public class PrinterBuildView extends javax.swing.JFrame
         fileMenu.setText("File");
 
         reportsMenu.setText("Reports");
-        reportsMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        reportsMenu.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 reportsMenuActionPerformed(evt);
             }
         });
@@ -340,8 +393,10 @@ public class PrinterBuildView extends javax.swing.JFrame
         helpMenu.setText("Help");
 
         contentsMenu.setText("Contents");
-        contentsMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        contentsMenu.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 contentsMenuActionPerformed(evt);
             }
         });
@@ -358,6 +413,33 @@ public class PrinterBuildView extends javax.swing.JFrame
         //add stl information to build table zcorp and create incomplete entry
         if(!submit())
               JOptionPane.showMessageDialog(new JPanel(), "Submit failed.", "Warning", JOptionPane.WARNING_MESSAGE);  
+         buildInfo = new ArrayList();
+
+        //making sure a printer was selected before enter build is alowed to function
+        if (printerNameComboBox.getSelectedItem().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "You must select a printer before you complete build", "You done GOOFED", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        Vector buildData = (Vector) modelA.getDataVector().elementAt(0);
+
+        if (buildData.contains(null))
+        {
+            JOptionPane.showMessageDialog(null, "All fields must be filled before Submitting", "You done GOOFED", JOptionPane.PLAIN_MESSAGE);
+        } else
+        {
+            for (int i = 0; i < buildData.size(); i++)
+            {
+
+                //error checking for values not entered
+                /*if(printerInputTable.getValueAt(1, i+1).equals(null)){
+                 JOptionPane.showMessageDialog(null, "All fields must be filled before Submitting", "You done GOOFED", JOptionPane.PLAIN_MESSAGE);
+                 return;
+                 }*/
+                buildInfo.add((String) buildData.elementAt(i));
+            }
+        }
+
 
     }//GEN-LAST:event_Submit_ButtonActionPerformed
 
@@ -407,6 +489,21 @@ public class PrinterBuildView extends javax.swing.JFrame
         }
     }//GEN-LAST:event_contentsMenuActionPerformed
 
+    private void confirmBuildButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_confirmBuildButtonActionPerformed
+    {//GEN-HEADEREND:event_confirmBuildButtonActionPerformed
+        if (printerNameComboBox.getSelectedItem().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "You must select a printer before you complete build", "You done GOOFED", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
+        String printerSelected = (String) printerNameComboBox.getSelectedItem();
+        Object[] lukeIsScared = new Object[1];
+        lukeIsScared[0] = "heehaw";
+        
+        printerInputTable.setModel(new javax.swing.table.DefaultTableModel(lukeIsScared, 1));
+        
+    }//GEN-LAST:event_confirmBuildButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ErrorText;
@@ -415,19 +512,25 @@ public class PrinterBuildView extends javax.swing.JFrame
     private javax.swing.JButton browseBtn;
     private javax.swing.JLabel buildLbl;
     private javax.swing.JButton closeBtn;
+    private javax.swing.JButton confirmBuildButton;
     private javax.swing.JMenuItem contentsMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JTextField filepathToSelectedPrinterBuild;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JList jList1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTable printerInputTable;
+    private javax.swing.JComboBox printerNameComboBox;
     private javax.swing.JMenuItem reportsMenu;
     private javax.swing.JTable stlFileTable;
     // End of variables declaration//GEN-END:variables
