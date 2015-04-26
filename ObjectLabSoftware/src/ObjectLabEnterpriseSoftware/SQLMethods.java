@@ -793,6 +793,7 @@ public ResultSet selectAcceptedFiles(String printer)
 	// END OF DELETE METHODS
 	// _____________________________________________________________________________________________________________________
     
+    @Deprecated
     public ResultSet getReport(String printer_name) 
     {
         res = null;
@@ -800,7 +801,20 @@ public ResultSet selectAcceptedFiles(String printer)
         {
             stmt = this.conn.prepareStatement
                     (
-                        "call report('" + printer_name.trim() + "');"
+                        "SELECT " +
+                        "cbd.build_name, " +
+                        "cpcn.custom_field_name, " +
+                        "cbd.column_field_data, " +
+                        "pb.total_runtime_seconds, " +
+                        "pb.number_of_models " +
+                        "FROM " +
+                        "column_build_data cbd " +
+                        "join custom_printer_column_names cpcn " +
+                        "on cbd.column_name_id = cpcn.column_names_id " +
+                        "join printer_build pb " +
+                        "on pb.build_name = cbd.build_name " +
+                        "where pb.printer_name = '"+printer_name+"' " +
+                        "order by build_name, custom_field_name;"
                     );
             
             res = stmt.executeQuery();
@@ -813,6 +827,7 @@ public ResultSet selectAcceptedFiles(String printer)
         return res;
     }
     
+    @Deprecated
     public ResultSet getReport(String column, String value, String printer_name) 
     {
         res = null;
@@ -820,7 +835,22 @@ public ResultSet selectAcceptedFiles(String printer)
         {
             stmt = this.conn.prepareStatement
                     (
-                        "call reportFiltered('" + printer_name + "', '" + column + "', '" + value + "');"
+                        "SELECT " +
+                        "cbd.build_name, " +
+                        "cpcn.custom_field_name, " +
+                        "cbd.column_field_data, " +
+                        "pb.total_runtime_seconds, " +
+                        "pb.number_of_models " +
+                        "FROM " +
+                        "column_build_data cbd " +
+                        "join custom_printer_column_names cpcn " +
+                        "on cbd.column_name_id = cpcn.column_names_id " +
+                        "join printer_build pb " +
+                        "on pb.build_name = cbd.build_name " +
+                        "where pb.printer_name = '"+printer_name+"' " +
+                        " and " +
+                        column + " = '" + value + "' " +
+                        "order by build_name, custom_field_name;"
                     );
             
             res = stmt.executeQuery();
