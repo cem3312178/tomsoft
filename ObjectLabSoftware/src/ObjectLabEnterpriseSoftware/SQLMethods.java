@@ -867,7 +867,7 @@ public ResultSet selectAcceptedFiles(String printer)
         res = null;
         try {
             stmt = this.conn.prepareStatement(
-                    "SELECT * "
+                    "SELECT * "  
                     + "FROM job "
                     + "WHERE "
                     + "AND job_id = ?");
