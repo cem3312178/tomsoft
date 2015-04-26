@@ -277,56 +277,11 @@ public ResultSet selectAcceptedFiles(String printer)
 		}
 		return res;
 	}
-
-    public ResultSet selectTableHeader(String printer)
-	{
-
-		res = null;
-		try
-		{
-			stmt = this.conn.prepareStatement("SELECT custom_field_name  FROM custom_printer_column_name Where printer_name = ?;");
-			stmt.setString(1, printer);
-			res = stmt.executeQuery();
-		} catch (SQLException e)
-		{
-			System.err.println("SQL Execution Error.");
-		}
-		return res;
-	}
-
 	// END OF SELECT METHODS
 	// _____________________________________________________________________________________________________________________
 
 	// BEGGINING OF INSERT METHODS
 	// _____________________________________________________________________________________________________________________
-
-
-        public String createDynamicQuery(String printer) throws SQLException
-	{
-		ResultSet temp = selectTableHeader(printer);
-		temp.beforeFirst();
-		temp.next();
-		temp.next();
-		String statement1 = "", statement2 ="";
-		while(temp.isAfterLast()   ==false)
-		{   temp.previous();
-			String attr = temp.getString(1);
-			statement1= statement1+ " sum( "+ attr+") as "+attr +", ";
-			statement2= statement2 + " case when custom_field_name  = \'" +attr+"\' then column_field_data end as "+ attr +",";
-			temp.next();
-			temp.next();
-		}
-		temp.previous();
-		String attr = temp.getString(1);
-		statement1= statement1+ " sum( "+ attr+") as "+attr;
-		statement2= statement2 + " case when custom_field_name  = \'" +attr+"\' then column_field_data end as "+ attr;
-	return "select report.build_name," + statement1 +" from (Select printer_build.build_name, " +statement2 + " From printer_build, column_build_data, custom_printer_column_names "
-			+" where printer_build.printer_name = custom_printer_column_names.printer_name" 
-			+" AND column_build_data.build_name= printer_build.build_name" 
-			+" AND custom_printer_column_names.column_names_id=column_build_data.column_name_id "
-			+" AND printer_build.printer_name=" + printer +"\'"
-			+" ) report group by report.build_name;";
-	}
 
 	public void insertIntoClasses(String className, String classSection, String professor) {
 		try {
@@ -792,7 +747,8 @@ public ResultSet selectAcceptedFiles(String printer)
         
 	// END OF DELETE METHODS
 	// _____________________________________________________________________________________________________________________
-
+    
+    @Deprecated
     public ResultSet getReport(String printer_name) 
     {
         res = null;
@@ -800,7 +756,20 @@ public ResultSet selectAcceptedFiles(String printer)
         {
             stmt = this.conn.prepareStatement
                     (
-                        "call report('" + printer_name.trim() + "');"
+                        "SELECT " +
+                        "cbd.build_name, " +
+                        "cpcn.custom_field_name, " +
+                        "cbd.column_field_data, " +
+                        "pb.total_runtime_seconds, " +
+                        "pb.number_of_models " +
+                        "FROM " +
+                        "column_build_data cbd " +
+                        "join custom_printer_column_names cpcn " +
+                        "on cbd.column_name_id = cpcn.column_names_id " +
+                        "join printer_build pb " +
+                        "on pb.build_name = cbd.build_name " +
+                        "where pb.printer_name = '"+printer_name+"' " +
+                        "order by build_name, custom_field_name;"
                     );
             
             res = stmt.executeQuery();
@@ -812,7 +781,8 @@ public ResultSet selectAcceptedFiles(String printer)
         
         return res;
     }
-
+    
+    @Deprecated
     public ResultSet getReport(String column, String value, String printer_name) 
     {
         res = null;
@@ -820,7 +790,22 @@ public ResultSet selectAcceptedFiles(String printer)
         {
             stmt = this.conn.prepareStatement
                     (
-                        "call reportFiltered('" + printer_name + "', '" + column + "', '" + value + "');"
+                        "SELECT " +
+                        "cbd.build_name, " +
+                        "cpcn.custom_field_name, " +
+                        "cbd.column_field_data, " +
+                        "pb.total_runtime_seconds, " +
+                        "pb.number_of_models " +
+                        "FROM " +
+                        "column_build_data cbd " +
+                        "join custom_printer_column_names cpcn " +
+                        "on cbd.column_name_id = cpcn.column_names_id " +
+                        "join printer_build pb " +
+                        "on pb.build_name = cbd.build_name " +
+                        "where pb.printer_name = '"+printer_name+"' " +
+                        " and " +
+                        column + " = '" + value + "' " +
+                        "order by build_name, custom_field_name;"
                     );
             
             res = stmt.executeQuery();
@@ -877,17 +862,16 @@ public ResultSet selectAcceptedFiles(String printer)
         return res;
     }
 
-    @Deprecated
-    public ResultSet searchPendingWithID(String ID) {
+   
+    public ResultSet searchWithJobID(int ID) {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT * "
-                    + "FROM pendingjobs "
+                    + "FROM job "
                     + "WHERE "
-                    + "status = 'pending' "
-                    + "AND idJobs = ?");
-            stmt.setString(1, ID);
+                    + "AND job_id = ?");
+            stmt.setInt(1,ID );
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e) {
@@ -933,23 +917,16 @@ public ResultSet selectAcceptedFiles(String printer)
         return res;
     }
 
-    @Deprecated
+    
     public ResultSet searchID(String table, String firstName, String lastName, String fileName, String dateStarted) {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
-                    "SELECT idJobs, filePath "
-                    + "FROM " + table + " "
+                    "SELECT job_id, file_path "
+                    + "FROM job "
                     + "WHERE "
-                    + "firstName = ? "
-                    + "AND lastName = ? "
-                    + "AND fileName = ? "
-                    + "AND dateStarted = ?");
-            //stmt.setString(, table);
-            stmt.setString(1, firstName);
-            stmt.setString(2, lastName);
-            stmt.setString(3, fileName);
-            stmt.setString(4, dateStarted);
+                    + "AND file_name = ? ;");
+            stmt.setString(1, fileName); 
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e) {
