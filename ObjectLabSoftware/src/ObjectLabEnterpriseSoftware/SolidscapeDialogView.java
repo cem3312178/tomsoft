@@ -97,6 +97,7 @@ public class SolidscapeDialogView extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        closeBtn2 = new javax.swing.JButton();
         BPath = new javax.swing.JTextField();
         dateRunTxt = new javax.swing.JTextField();
         numOfModels = new javax.swing.JTextField();
@@ -123,10 +124,22 @@ public class SolidscapeDialogView extends javax.swing.JFrame
         ResolutionError = new javax.swing.JLabel();
         ResolutionText = new javax.swing.JTextField();
         Resolution = new javax.swing.JLabel();
+        closeBtn3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+
+        closeBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+        closeBtn2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        closeBtn2.setBorderPainted(false);
+        closeBtn2.setContentAreaFilled(false);
+        closeBtn2.setFocusPainted(false);
+        closeBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeBtn2ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
@@ -166,7 +179,7 @@ public class SolidscapeDialogView extends javax.swing.JFrame
                 submitBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(submitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, -1, -1));
+        getContentPane().add(submitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, -1, -1));
 
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel26.setText("Comment (Optional):");
@@ -222,8 +235,8 @@ public class SolidscapeDialogView extends javax.swing.JFrame
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Solidscape Data Entry");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 31, 360, 10));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 420, 10));
 
         runTimeError.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         runTimeError.setForeground(new java.awt.Color(255, 0, 0));
@@ -241,8 +254,20 @@ public class SolidscapeDialogView extends javax.swing.JFrame
         Resolution.setText("Resolution:");
         getContentPane().add(Resolution, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 144, 100, 20));
 
+        closeBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+        closeBtn3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        closeBtn3.setBorderPainted(false);
+        closeBtn3.setContentAreaFilled(false);
+        closeBtn3.setFocusPainted(false);
+        closeBtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeBtn3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(closeBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
+
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 450, 360));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 380));
 
         jMenu1.setText("File");
 
@@ -353,6 +378,16 @@ public class SolidscapeDialogView extends javax.swing.JFrame
     private void BPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BPathActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BPathActionPerformed
+
+    private void closeBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtn2ActionPerformed
+        dispose();
+        home.resetAdminMode();
+    }//GEN-LAST:event_closeBtn2ActionPerformed
+
+    private void closeBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtn3ActionPerformed
+        dispose();
+        home.resetAdminMode();
+    }//GEN-LAST:event_closeBtn3ActionPerformed
    
     public static void setUp(String buildName, int countNumOfModels) 
     {
@@ -366,6 +401,8 @@ public class SolidscapeDialogView extends javax.swing.JFrame
     private javax.swing.JLabel Resolution;
     private javax.swing.JLabel ResolutionError;
     private javax.swing.JTextField ResolutionText;
+    private static javax.swing.JButton closeBtn2;
+    private static javax.swing.JButton closeBtn3;
     private javax.swing.JTextArea comment;
     private javax.swing.JTextField dateRunTxt;
     private javax.swing.JLabel dayStar;

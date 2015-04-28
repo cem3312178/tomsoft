@@ -62,6 +62,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        closeBtn = new javax.swing.JButton();
+        closeBtn1 = new javax.swing.JButton();
         jLabel1_FileLocation = new javax.swing.JLabel();
         fileLocation = new javax.swing.JTextField();
         Browse = new javax.swing.JButton();
@@ -80,6 +82,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         idOfUser = new javax.swing.JTextField();
+        closeBtn2 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         editMenu = new javax.swing.JMenu();
@@ -88,6 +91,28 @@ public class StudentSubmissionView extends javax.swing.JFrame
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
+
+        closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+        closeBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        closeBtn.setBorderPainted(false);
+        closeBtn.setContentAreaFilled(false);
+        closeBtn.setFocusPainted(false);
+        closeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeBtnActionPerformed(evt);
+            }
+        });
+
+        closeBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+        closeBtn1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        closeBtn1.setBorderPainted(false);
+        closeBtn1.setContentAreaFilled(false);
+        closeBtn1.setFocusPainted(false);
+        closeBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeBtn1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
@@ -190,7 +215,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         jLabel8_StudentSubmission.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8_StudentSubmission.setText("Student Submission");
-        getContentPane().add(jLabel8_StudentSubmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        getContentPane().add(jLabel8_StudentSubmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
 
         jButton1.setText("Cancel");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -212,8 +237,20 @@ public class StudentSubmissionView extends javax.swing.JFrame
         });
         getContentPane().add(idOfUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 130, 30));
 
+        closeBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+        closeBtn2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        closeBtn2.setBorderPainted(false);
+        closeBtn2.setContentAreaFilled(false);
+        closeBtn2.setFocusPainted(false);
+        closeBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeBtn2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(closeBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
+
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 500, 280));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 280));
 
         editMenu.setText("Help");
 
@@ -374,10 +411,28 @@ public class StudentSubmissionView extends javax.swing.JFrame
         
     }//GEN-LAST:event_idOfUserActionPerformed
 
+    private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
+        dispose();
+        home.resetAdminMode();
+    }//GEN-LAST:event_closeBtnActionPerformed
+
+    private void closeBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtn1ActionPerformed
+        dispose();
+        home.resetAdminMode();
+    }//GEN-LAST:event_closeBtn1ActionPerformed
+
+    private void closeBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtn2ActionPerformed
+        dispose();
+        home.resetAdminMode();
+    }//GEN-LAST:event_closeBtn2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Browse;
     private javax.swing.JButton Student_Submit;
     private javax.swing.JComboBox classBox;
+    private static javax.swing.JButton closeBtn;
+    private static javax.swing.JButton closeBtn1;
+    private static javax.swing.JButton closeBtn2;
     private javax.swing.JMenu editMenu;
     private javax.swing.JLabel error_NoClassSelected;
     private javax.swing.JLabel error_NoFileLocationSelected;

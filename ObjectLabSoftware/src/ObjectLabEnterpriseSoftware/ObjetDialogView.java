@@ -140,6 +140,7 @@ public class ObjetDialogView extends javax.swing.JFrame
         ResolutionText = new javax.swing.JTextField();
         ResolutionError = new javax.swing.JLabel();
         ResolutionLbl = new javax.swing.JLabel();
+        closeBtn2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -178,7 +179,7 @@ public class ObjetDialogView extends javax.swing.JFrame
                 submitBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(submitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, -1, -1));
+        getContentPane().add(submitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 460, -1, -1));
 
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel26.setText("Comment (Optional):");
@@ -234,8 +235,8 @@ public class ObjetDialogView extends javax.swing.JFrame
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Objet Data Entry");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 31, 360, 10));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 440, 10));
 
         runTimeError.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         runTimeError.setForeground(new java.awt.Color(255, 0, 0));
@@ -308,9 +309,21 @@ public class ObjetDialogView extends javax.swing.JFrame
         ResolutionLbl.setText("Resolution:");
         getContentPane().add(ResolutionLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, 20));
 
+        closeBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+        closeBtn2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        closeBtn2.setBorderPainted(false);
+        closeBtn2.setContentAreaFilled(false);
+        closeBtn2.setFocusPainted(false);
+        closeBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeBtn2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(closeBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
+
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         jLabel5.setText("jLabel5");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 480, 530));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 480, 530));
 
         jMenu1.setText("File");
 
@@ -495,6 +508,11 @@ public class ObjetDialogView extends javax.swing.JFrame
     private void BuildConsumedTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuildConsumedTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BuildConsumedTextActionPerformed
+
+    private void closeBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtn2ActionPerformed
+        dispose();
+        home.resetAdminMode();
+    }//GEN-LAST:event_closeBtn2ActionPerformed
     public static void setUp(String buildName, int countNumOfModels) {
         BPath.setText(buildName);
         numOfModels.setText("" + countNumOfModels);
@@ -514,6 +532,7 @@ public class ObjetDialogView extends javax.swing.JFrame
     private javax.swing.JLabel SupportConError;
     private javax.swing.JLabel VolumeLbl;
     private javax.swing.JTextField VolumeText;
+    private static javax.swing.JButton closeBtn2;
     private javax.swing.JTextArea comment;
     private javax.swing.JTextField dateRunTxt;
     private javax.swing.JLabel dayStar;
